@@ -1,0 +1,23 @@
+{
+
+  "manifest_version": 2,
+  "name": "Certificate expiration",
+  "version": "1.0",
+  "description": "Shows how many days the website certificate has left.",
+  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>", "tabs"],
+
+  "browser_action": {
+    "default_icon": "icons/grey-lock.svg",
+    "default_title": "How many days until the certificate expires"
+  },
+
+  "background": {
+    "scripts": [ "background.js" ]
+  },
+
+  "icons": {
+    "48": "icons/lock.svg",
+    "96": "icons/lock.svg"
+  }
+
+}
