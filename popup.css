@@ -1,0 +1,73 @@
+html {
+  font-family: sans-serif;
+}
+
+.cert {
+  margin-bottom: 0.5rem;
+  padding: 0.6rem;
+  border: 1px solid grey;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  grid-template-areas: 
+    "subject-label     subject"
+    "issuer-label      issuer"
+    "start-date-label  start-date"
+    "end-date-label    end-date"
+    "days-left-label   days-left";
+}
+
+.header {
+  margin-bottom: 0.5rem;
+}
+
+.hostname {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.issuer-label {
+  grid-area: issuer-label;
+  text-align: right;
+}
+
+.issuer {
+  grid-area: issuer;
+}
+
+.subject-label {
+  grid-area: subject-label;
+  text-align: right;
+}
+
+.subject {
+  grid-area: subject;
+}
+
+.start-date-label {
+  grid-area: start-date-label;
+  text-align: right;
+}
+
+.start-date {
+  grid-area: start-date;
+}
+
+.end-date-label {
+  grid-area: end-date-label;
+  text-align: right;
+}
+
+.end-date {
+  grid-area: end-date;
+}
+
+.days-left-label {
+  grid-area: days-left-label;
+  text-align: right;
+}
+
+.days-left {
+  grid-area: days-left;
+}
