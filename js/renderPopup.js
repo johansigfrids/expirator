@@ -1,32 +1,10 @@
+
 "use strict";
 
-const backgroundPage = browser.extension.getBackgroundPage();
-const factor = 1000 * 60 * 60 * 24;
+import {factor} from './constants.js';
+import parser from './parser.js';
 
-export default async function main() {
-  const tabs = await browser.tabs.query({currentWindow: true, active: true});
-  if (!tabs.length) {
-    return;
-  }
-  const tab = tabs[0];
-  if (!tab.url) {
-    return;
-  }
-  const tabDomain = new URL(tab.url).hostname;
-  const info = backgroundPage.getInfo(tabDomain);
-  if (!info) {
-    return;
-  }
-  const securityInfo = info.info;
-  const root = document.querySelector('.root');
-  if (securityInfo.isUntrusted || securityInfo.state !== "secure" && securityInfo.state !== "weak") {
-    root.textContent = 'This page is not secured';
-    return;
-  }
-  renderPopup(root, securityInfo.certificates, tabDomain);
-}
-
-function renderPopup(root, certificates, tabDomain) {
+export default function renderPopup(root, certificates, tabDomain) {
   const fragment = new DocumentFragment();
   const header = document.createElement('h1');
   header.classList.add('header');
@@ -49,6 +27,9 @@ function renderPopup(root, certificates, tabDomain) {
 function renderCert(cert) {
   let diff = cert.validity.end - new Date().getTime();
   let diffDays = Math.floor(diff / factor);
+  if (diffDays < 0) {
+    console.log(cert);
+  }
 
   const container = document.createElement('div');
   container.classList.add('cert');
@@ -117,56 +98,3 @@ function extractName(text) {
   }
   return result['CN'];
 }
-
-function parser(str) {
-  const result = {};
-  let state = 'key';
-  let from = 0;
-  let key = null;
-  let quote = null;
-  for (let to = 0; to < str.length; to++) {
-    if (to < from) {
-      continue;
-    }
-    switch (state) {
-      case 'key':
-        if (str[to] === '=') {
-          state = 'valueOrStr';
-          key = str.slice(from, to);
-          from = to + 1;
-        }
-        continue;
-      case 'valueOrStr':
-        if (str[to] === "'" || str[to] === '"') {
-          state = 'str';
-          quote = str[to];
-          from = to + 1;
-        } else {
-          state = 'value';
-        }
-        continue;
-      case 'str':
-        if (str[to] == quote) {
-          result[key] = str.slice(from, to);
-          from = to + 2;
-          state = 'key';
-        }
-        continue;
-      case 'value':
-        if (str[to] === ',') {
-          result[key] = str.slice(from, to)
-          from = to + 1;
-          state = 'key';
-        }
-        continue;
-      default:
-        continue;
-    }
-  }
-  if (state === 'value') {
-    result[key] = str.slice(from, str.length);
-  }
-  return result;
-}
-
-main();
