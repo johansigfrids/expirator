@@ -20,11 +20,7 @@ async function main() {
     return;
   }
   const root = document.querySelector('.root');
-  if (securityInfo.isUntrusted || securityInfo.state !== "secure" && securityInfo.state !== "weak") {
-    root.textContent = 'This page is not secured';
-    return;
-  }
-  renderPopup(root, securityInfo.certificates, tabOrigin);
+  renderPopup(root, securityInfo, tabOrigin, tab.id);
   updateBadge(tab.id, securityInfo)
 }
 

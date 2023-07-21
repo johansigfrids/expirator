@@ -26,18 +26,22 @@ async function cleanupGarbage() {
     if (value.cacheTime + factor < now) {
       const tabs = await browser.tabs.query({ url: `${key}/*` });
       if (tabs.length === 0) {
-        infoMap.delete(key);
+        clearInfo(key);
       }
     }
   }
 }
 
-export function setInfo(requestOrigin, securityInfo) {
-  infoMap.set(requestOrigin, toCacheFormat(securityInfo));
+export function setInfo(key, securityInfo) {
+  infoMap.set(key, toCacheFormat(securityInfo));
 }
 
 export function getInfo(key) {
   return infoMap.get(key);
 };
+
+export function clearInfo(key) {
+  infoMap.delete(key);
+}
 
 setInterval(cleanupGarbage, gcInterval);

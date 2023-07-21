@@ -2,9 +2,10 @@
 
 import updateBadge from './updateBadge.js';
 import { factor } from './constants.js';
-import { getInfo, setInfo } from './infoCache.js';
+import { getInfo, setInfo, clearInfo } from './infoCache.js';
 
 window.getInfo = getInfo;
+window.clearInfo = clearInfo;
 
 async function logCert(details) {
   try {

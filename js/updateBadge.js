@@ -30,3 +30,14 @@ export default function updateBadge(tabId, securityInfo) {
     tabId: tabId,
   });
 }
+
+export function resetBadge(tabId) {
+  browser.browserAction.setBadgeText({
+    text: null,
+    tabId: tabId,
+  });
+  browser.browserAction.setIcon({
+    path: '/icons/grey-lock.svg',
+    tabId: tabId,
+  });
+}
