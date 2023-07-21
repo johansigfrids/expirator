@@ -1,24 +1,24 @@
 {
-
   "manifest_version": 2,
   "name": "Certificate expiration",
-  "version": "2.1",
+  "version": "3.0",
   "description": "Shows how many days until the certificate for the website expires.",
-  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>", "tabs"],
-
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>",
+    "tabs"
+  ],
   "browser_action": {
     "default_icon": "/icons/grey-lock.svg",
     "default_title": "How many days until the certificate expires",
     "default_popup": "/html/popup.html"
   },
-
   "background": {
     "page": "/html/background.html"
   },
-
   "icons": {
     "48": "/icons/lock.svg",
     "96": "/icons/lock.svg"
   }
-
 }
