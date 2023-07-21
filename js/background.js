@@ -1,8 +1,8 @@
 "use strict";
 
 import updateBadge from './updateBadge.js';
-import {factor} from './constants.js';
-import {getInfo, setInfo} from './infoCache.js';
+import { factor } from './constants.js';
+import { getInfo, setInfo } from './infoCache.js';
 
 window.getInfo = getInfo;
 
@@ -14,12 +14,12 @@ async function logCert(details) {
     if (!data || data.cacheTime + factor / 2 < now) {
       const securityInfo = await browser.webRequest.getSecurityInfo(
         details.requestId,
-        {"certificateChain": true}
+        { "certificateChain": true }
       );
       setInfo(requestDomain, securityInfo);
     }
   }
-  catch(error) {
+  catch (error) {
     console.error(error);
   }
 }
@@ -45,7 +45,7 @@ async function updateTab(tabId, changeInfo, tab) {
 }
 
 browser.webRequest.onHeadersReceived.addListener(logCert,
-  {urls: ["<all_urls>"]},
+  { urls: ["<all_urls>"] },
   ["blocking"]
 );
 

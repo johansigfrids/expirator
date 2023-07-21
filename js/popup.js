@@ -6,7 +6,7 @@ import updateBadge from './updateBadge.js';
 const getInfo = browser.extension.getBackgroundPage().window.getInfo;
 
 async function main() {
-  const tabs = await browser.tabs.query({currentWindow: true, active: true});
+  const tabs = await browser.tabs.query({ currentWindow: true, active: true });
   if (!tabs.length) {
     return;
   }

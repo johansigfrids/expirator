@@ -1,7 +1,7 @@
 
 "use strict";
 
-import {factor} from './constants.js';
+import { factor } from './constants.js';
 import parser from './parser.js';
 
 export default function renderPopup(root, certificates, tabDomain) {

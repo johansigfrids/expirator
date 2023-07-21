@@ -1,9 +1,9 @@
 "use strict";
 
-import {factor, redline} from './constants.js';
+import { factor, redline } from './constants.js';
 
 export default function updateBadge(tabId, securityInfo) {
-  if (securityInfo.isUntrusted || securityInfo.state !== "secure" && securityInfo.state !== "weak") {
+  if (securityInfo.isUntrusted || (securityInfo.state !== "secure" && securityInfo.state !== "weak") || securityInfo.certificates.length === 0) {
     browser.browserAction.setIcon({
       path: '/icons/open-lock.svg',
       tabId: tabId,
