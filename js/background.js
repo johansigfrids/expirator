@@ -8,15 +8,15 @@ window.getInfo = getInfo;
 
 async function logCert(details) {
   try {
-    const requestDomain = new URL(details.url).hostname;
+    const requestOrigin = new URL(details.url).origin;
     const now = new Date().getTime();
-    const data = getInfo(requestDomain);
+    const data = getInfo(requestOrigin);
     if (!data || data.cacheTime + factor / 2 < now) {
       const securityInfo = await browser.webRequest.getSecurityInfo(
         details.requestId,
         { "certificateChain": true }
       );
-      setInfo(requestDomain, securityInfo);
+      setInfo(requestOrigin, securityInfo);
     }
   }
   catch (error) {
@@ -32,8 +32,8 @@ async function updateTab(tabId, changeInfo, tab) {
     if (!tab.url) {
       return;
     }
-    const tabDomain = new URL(tab.url).hostname;
-    const securityInfo = getInfo(tabDomain)
+    const tabOrigin = new URL(tab.url).origin;
+    const securityInfo = getInfo(tabOrigin)
     if (!securityInfo) {
       return;
     }

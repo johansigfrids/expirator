@@ -32,8 +32,8 @@ async function cleanupGarbage() {
   }
 }
 
-export function setInfo(requestDomain, securityInfo) {
-  infoMap.set(requestDomain, toCacheFormat(securityInfo));
+export function setInfo(requestOrigin, securityInfo) {
+  infoMap.set(requestOrigin, toCacheFormat(securityInfo));
 }
 
 export function getInfo(key) {

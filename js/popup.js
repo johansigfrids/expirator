@@ -14,8 +14,8 @@ async function main() {
   if (!tab.url) {
     return;
   }
-  const tabDomain = new URL(tab.url).hostname;
-  const securityInfo = getInfo(tabDomain);
+  const tabOrigin = new URL(tab.url).origin;
+  const securityInfo = getInfo(tabOrigin);
   if (!securityInfo) {
     return;
   }
@@ -24,7 +24,7 @@ async function main() {
     root.textContent = 'This page is not secured';
     return;
   }
-  renderPopup(root, securityInfo.certificates, tabDomain);
+  renderPopup(root, securityInfo.certificates, tabOrigin);
   updateBadge(tab.id, securityInfo)
 }
 

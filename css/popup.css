@@ -9,7 +9,7 @@ html {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.5rem;
-  grid-template-areas: 
+  grid-template-areas:
     "subject-label     subject"
     "issuer-label      issuer"
     "start-date-label  start-date"

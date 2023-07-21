@@ -4,13 +4,14 @@
 import { factor } from './constants.js';
 import parser from './parser.js';
 
-export default function renderPopup(root, certificates, tabDomain) {
+export default function renderPopup(root, certificates, tabOrigin) {
   const fragment = new DocumentFragment();
   const header = document.createElement('h1');
   header.classList.add('header');
   header.textContent = 'Certificate chain';
   fragment.appendChild(header);
 
+  const tabDomain = new URL(tabOrigin).hostname
   const hostname = document.createElement('h3');
   hostname.classList.add('hostname');
   hostname.textContent = tabDomain;
